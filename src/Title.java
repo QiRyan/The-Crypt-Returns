@@ -23,9 +23,9 @@ public class Title{
 			}
 	private static Party createParty(int number){
 		Scanner input = new Scanner(System.in);
-		Hero[] pt = new Hero[4];
+		Hero[] pt = new Hero[number];
 		String lad;
-		for (int i = 0; i < 4; i++){
+		for (int i = 0; i < number; i++){
 			System.out.print("New hero's name: ");
 			lad = null;
 				do {
