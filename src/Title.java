@@ -20,7 +20,7 @@ public class Title{
 		System.out.println("Now thant you know the basics please enter the name of yoou first of 4 heros");
 		input.close();
 		pt = createParty(4);
-			}
+	}
 	private static Party createParty(int number){
 		Scanner input = new Scanner(System.in);
 		Hero[] pt = new Hero[number];
@@ -28,17 +28,17 @@ public class Title{
 		for (int i = 0; i < number; i++){
 			System.out.print("New hero's name: ");
 			lad = null;
-				do {
-					String nametry = input.nextLine();
-					if (nametry.length() == 0) 
-						System.out.println("Please enter a name");
-					else {
-						if (nametry.equalsIgnoreCase("?"))
-							System.out.print("Type in the name of your " +(i+1)+"th Hero");
-						else 
-							lad = nametry;
-					}
-				} while (lad == null);
+			do {
+				String nametry = input.nextLine();
+				if (nametry.length() == 0) 
+					System.out.println("Please enter a name");
+				else {
+					if (nametry.equalsIgnoreCase("?"))
+						System.out.print("Type in the name of your " +(i+1)+"th Hero");
+					else 
+						lad = nametry;
+				}
+			} while (lad == null);
 
 			System.out.println(lad + " is the hero's name!");
 			System.out.println("Please enter a class. The three are, warriors, mages, and thiefs");
@@ -180,7 +180,7 @@ public class Title{
 				chosen3 = new Skill("Soul drain");
 				break;
 			case "kinetic shield":
-				chosen3 = new Skill("Kinetic sheild");
+				chosen3 = new Skill("Kinetic shield");
 				break;
 			case "?":
 				System.out.println("Mages have a tier based Skill system, meaning once you unlock a specific number of tier one spells, you unlock tier two.");
