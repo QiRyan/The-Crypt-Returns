@@ -13,7 +13,7 @@ public class Hero{
    protected int trueAgility;
    protected int trueIntelligence;
    protected int trueHealth;
-   protected int trueMana;
+   protected int trueMana; //Still sad from feels
    protected boolean life;
    
    protected ArrayList<Skill> skills;
