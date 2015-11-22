@@ -1,16 +1,15 @@
 import java.util.*;
-public class Warrior extends Hero
+public class Warrior extends Hero implements Player
 {
-
    public Warrior (String nm, Skill skl1, Skill skl2, Skill skl3) {
-     super (nm, "warrior", skl1, skl2, skl3);
-      System.out.println(nm + " is a strong warrior!");
+      super (nm, "warrior", skl1, skl2, skl3);
       Random stat = new Random();
       int hlth = 300 + stat.nextInt(50);
       int mna = 150 + stat.nextInt(50);
       int str = 8 + stat.nextInt(4);
       int Int = 5 + stat.nextInt(2);
       int agi = 3 + stat.nextInt(6);
+      
       this.strength = str;
       this.trueStrength = str;
       this.agility = agi;
@@ -21,10 +20,15 @@ public class Warrior extends Hero
       this.trueMana = mna;
       this.health = hlth;
       this.trueHealth = hlth;   
-      System.out.println("With Health of " + hlth + ".");
-      System.out.println("Mana of " + mna + ".");
-      System.out.println("Strength of " + str + ".");
-      System.out.println("Agility of " + agi + ".");
-      System.out.println("Intelligence of " + Int + ".");
+   }
+   
+   public int basicAttack()
+   {
+      return this.strength;
+   }
+   
+   public void levelUp()
+   {
+      this.level += 1;
    }
 }
