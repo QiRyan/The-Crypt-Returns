@@ -22,9 +22,9 @@ public class Warrior extends Hero implements Player
       this.trueHealth = hlth;   
    }
    
-   public int basicAttack()
+   public int attack(int bonus, double multiply)
    {
-      return this.strength;
+      return (int)(multiply * (this.strength + bonus));
    }
    
    public void levelUp()
