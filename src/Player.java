@@ -1,6 +1,6 @@
 public interface Player
 {
    public void levelUp();
-   public int basicAttack();
+   public int attack(int bonus, double multiply);
    
 }

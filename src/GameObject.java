@@ -1,15 +1,20 @@
 import java.util.*;
 
 //GameObject - player, NPC, monsters, etc
-//Contins stats
+//Contins information about said GameObject
+//Methods for losing/recovering health and mana, and for reviving
+//Modifying stat values or reseting them to trueStat valeus
+//Can print stat values
 public class GameObject
 {
    protected String name;
    protected int level;
    protected int exp;
    
-   protected int attack;
-   protected int defense;
+  protected List<String> decisions;
+  protected List<Skill> skills;
+//    protected int attack;
+//    protected int defense;
    
    protected int strength;
    protected int agility;
@@ -61,7 +66,8 @@ public class GameObject
       return trueMana;}
    public boolean isAlive(){
       return life;} 
-   
+   public List<String> getDecisions(){return this.decisions;}
+
    public GameObject(String name)
    {
       this.name = name;
@@ -80,11 +86,11 @@ public class GameObject
       this.agility = trueAgility;
       
       this.trueIntelligence = trueIntelligence;
-      this.intelligence = intelligence;
+      this.intelligence = trueIntelligence;
       
       this.trueHealth = trueHealth;
       this.health = trueHealth;
-      this.trueMana = mana;
+      this.trueMana = trueMana;
       this.mana = trueMana;
       
       this.life = true;
@@ -96,8 +102,13 @@ public class GameObject
       if(this.health < 0)
       {
          this.health = 0;
-         life = false;
+         death();
       }
+   }
+   public void death()
+   {
+      System.out.println(this.name + " dies like the scrub he is");
+      this.life = false;
    }
    
    public void recoverHealth(int health)
@@ -110,6 +121,20 @@ public class GameObject
             this.health = trueHealth;
          }
       }      
+   }
+   
+   public void revive(double percent)
+   {
+      if(!this.life)
+      {
+         this.life = true;
+         this.health = (int)(trueHealth * percent);         
+      }
+      else
+      {
+         System.out.println("This character is alive and kicking... for now");
+         System.out.println();
+      }
    }
    
    public void consumeMana(int mana)
@@ -131,6 +156,14 @@ public class GameObject
       {
          this.mana = trueMana;
       }
+   }
+   
+   public void printStats()
+   {
+      System.out.println("Name: " + this.name);
+      System.out.println("HP: " + this.health + "/" + this.trueHealth);
+      System.out.println("Mana: " + this.mana + "/" + this.trueMana);
+      System.out.println("STR/AGI/INT: " + this.strength + "/" + this.agility + "/" + this.intelligence);
    }
    
    public void resetStats()
@@ -185,5 +218,27 @@ public class GameObject
    public void intelligenceModify(double ratio)
    {
       this.intelligence *= ratio;
+   }
+         
+   public int basicAttack()
+   {
+      return this.strength;
+   }
+   
+   public void defend()
+   {
+      System.out.println(this.name + " braces itself for the next attack!");
+   }
+   
+   public void useSkill(int skillIndex)
+   {
+      if(skills == null)
+      {
+         System.out.println(this.name + " racks its mind for a skill to use, but realizes it doesn't know any");
+      }
+      else
+      {
+         System.out.println(" Too bad we haven't implemented skills yet");
+      }
    }
 }

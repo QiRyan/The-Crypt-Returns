@@ -1,8 +1,8 @@
 import java.util.*;
 public class Hero extends GameObject{
+      
    protected String heroClass;
-   protected Set<Skill> skills;
-   
+      
    protected String weapon;
    protected String head;
    protected String body;
@@ -13,7 +13,7 @@ public class Hero extends GameObject{
       
    public Hero(String na, String cls, Skill skill1, Skill skill2, Skill skill3) {
       super(na);
-      skills = new TreeSet<Skill>();
+      skills = new ArrayList<Skill>();
       skills.add(skill1);
       skills.add(skill2);
       skills.add(skill3);
@@ -32,5 +32,6 @@ public class Hero extends GameObject{
 //       {
 //          
 //       }
-   }   
+   }
+   
 }
