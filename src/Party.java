@@ -8,13 +8,13 @@ public class Party
    protected Map<String, Integer> inventory;
    protected List<String> blessings;
       
-   public Party(List<GameObject> team, int gold) {
+   public Party(List<GameObject> team) {
       this.party = new ArrayList<GameObject>();
       for(GameObject being : team)
       {
          party.add(being);
       }
-      this.gold = gold;
+      this.gold = 500;
       this.inventory = new TreeMap<String, Integer>();
       this.blessings = new ArrayList<String>();
    }
