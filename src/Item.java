@@ -70,6 +70,12 @@ public class Item {
       strMin = 0;
       intMin = 0;
       agiMin = 0;
+      strScale = 0;
+      intScale = 0;
+      agiScale = 0;
+      strMod = 0;
+      intMod = 0;
+      agiMod = 0;
       // WEAPONS
       if (nm.equalsIgnoreCase("sword")) {
          name = "sword";
