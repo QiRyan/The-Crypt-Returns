@@ -17,7 +17,7 @@ public class Hero extends GameObject{
       skills.add(skill1);
       skills.add(skill2);
       skills.add(skill3);
-      Item nothing = new Item();
+      Item nothing = new Item("");
       weapon = head = body = feet = nothing;
       heroClass = cls;
       level = 1;
@@ -27,7 +27,7 @@ public class Hero extends GameObject{
    }
    
    public Item equipItem(Item given){
-      Item holder = new Item();
+      Item holder = new Item("");
       if (trueStrength < given.getStrMin()) {
          System.out.println(name + " doesn't have enough strength to equip " + given.getName() + ". " + given.getStrMin() + " strength is required, " + name + " only has " + trueStrength + ".");
          System.out.println("They are the human noodle after all.");
