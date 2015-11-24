@@ -36,7 +36,35 @@ public class Town{
             System.out.println("Quit: Leave for the Crypt.");
          }
          if (townInput.equalsIgnoreCase("Inventory")) {
-            Heros.printInventory();
+            boolean inventoryPause = true;
+            Art.drawInventory();
+            do {
+               System.out.println("You have acessed your inventory, what would you like to do?");
+               String inventoryInput = input.nextLine();
+               if (inventoryInput.equalsIgnoreCase("Equips")) {
+                  Heros.printHeroNames();
+                  Heros.printFullEquips();
+               }
+               if (inventoryInput.equalsIgnoreCase("Stats")) {
+                  Heros.printHeroNames();
+                  Heros.printTrueStatCheckup();
+               }
+               if (inventoryInput.equalsIgnoreCase("Inventory")) {
+                  Heros.printInventoryEnhance();
+               }
+               if (inventoryInput.equalsIgnoreCase("?")) {
+                  System.out.println("Equips: see all of your heros and their equips in one orderly screen");
+                  System.out.println("Stats: see all of your heros and their stats in one orderly screen");
+                  System.out.println("Inventory: see your inventory in all its splendor");
+                  System.out.println("Type in the name of a hero to get an in detail description of them, and the ability to tweak them");
+                  System.out.println("Type in the name of an inventory item in order to use/equip it");
+                  System.out.println("Quit: leave the inventory menu");
+               }
+               if (inventoryInput.equalsIgnoreCase("quit")) {
+                  inventoryPause = false;
+                  System.out.println("You have chosen to leave the inventory menu");
+               }
+            } while (inventoryPause);
          }
       
          if (townInput.equalsIgnoreCase("Shop")) {
@@ -74,9 +102,9 @@ public class Town{
                               String[] split = sellInput.split(" x ");
                               sellInput = split[0];
                               quantity = Integer.parseInt(split[1]);} 
-                              else {
+                           else {
                               interest = new Item(sellInput);
-                              }
+                           }
                               
                            
                            if (Heros.check(interest)) {
