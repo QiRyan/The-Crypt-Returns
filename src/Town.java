@@ -23,6 +23,26 @@ public class Town{
       shopCatalog.add(sp1);
       shopCatalog.add(sp2);
       shopCatalog.add(sp3);
+      ArrayList<Item> weaponCatalog = new ArrayList<Item>();
+      weaponCatalog.add(new Item("sword"));
+      weaponCatalog.add(new Item("wand"));
+      weaponCatalog.add(new Item("Razor"));
+      weaponCatalog.add(new Item("shiv"));
+      ArrayList<Item> headCatalog = new ArrayList<Item>();
+      headCatalog.add(new Item("Iron Helmet"));
+      headCatalog.add(new Item("Head Band"));
+      headCatalog.add(new Item("Mortarboard"));
+      headCatalog.add(new Item("Bandana"));
+      ArrayList<Item> bodyCatalog = new ArrayList<Item>();
+      bodyCatalog.add(new Item("leather vest"));
+      bodyCatalog.add(new Item("novice Robes"));
+      bodyCatalog.add(new Item("hunter's hoodie"));
+      bodyCatalog.add(new Item("rusted chainmail"));
+      ArrayList<Item> feetCatalog = new ArrayList<Item>();
+      feetCatalog.add(new Item("Boots"));
+      feetCatalog.add(new Item("Flip-flops"));
+      feetCatalog.add(new Item("sneakers"));
+      feetCatalog.add(new Item("pointy shoes"));
       do{
          Art.drawTown();
          System.out.println("You are in the town with " + Heros.getGold() + " gold. Where would you like to go?");
@@ -34,6 +54,201 @@ public class Town{
             System.out.println("Temple: Interact with the gods of the relm.");
             System.out.println("Inventory: Acess your inventory and manage your heros.");
             System.out.println("Quit: Leave for the Crypt.");
+         }
+         if (townInput.equalsIgnoreCase("Armory")) {
+            boolean armoryPause = true;
+            do {
+               Art.drawArmorySign();
+               System.out.println("Blacksmith: \"BROTHAAAAAAAAA! What type o' equip ya lookin fer?\"");
+               String armoryInput = input.nextLine();
+               if (armoryInput.equalsIgnoreCase("?")) {
+                  System.out.println("Weapons: You need a weapon? Right this way.");
+                  System.out.println("Head: go browse the various headgear to find the hat that will define your look.");
+                  System.out.println("Body: head over to the mannequins and select what atire you wish to enter battle with");
+                  System.out.println("Feet: peruse the shoe aisle and get somthing that really shouldn't effect your stats but does.");
+                  System.out.println("Quit: Leave the armory for the town.");
+               }
+               if (armoryInput.equalsIgnoreCase("quit")) {
+                  System.out.println("Blacksmith: \"See ya round frugal fellas!\"");
+                  armoryPause = false;
+               }
+               if (armoryInput.equalsIgnoreCase("Weapons") || armoryInput.equalsIgnoreCase("weapon")) {
+                  System.out.println("Blacksmith: \"Right this way mates, we got the sharpest swords in all of this place.\"");
+                  Art.drawSword();
+                  for (int g = 0; g < weaponCatalog.size(); g++) {
+                     System.out.println(weaponCatalog.get(g).getName() + " for " + weaponCatalog.get(g).getCost());
+                  }
+                  do {
+                     System.out.println("Blacksmith: \"Which weapon tickles ya fancy?\"");
+                     String weaponInput = input.nextLine();
+                     if (weaponInput.equalsIgnoreCase("?")) {
+                        System.out.println("Catalog: List the weapon items you can buy.");
+                        System.out.println("Quit: Leave the weapongear aisle.");
+                        System.out.println("Type in the name of the item you would like to buy. Unlike the shop, quantity is not an issue.");
+                     }  
+                     else
+                        if (weaponInput.equalsIgnoreCase("Catalog")) {
+                           for (int g = 0; g < weaponCatalog.size(); g++) {
+                              System.out.println(weaponCatalog.get(g).getName() + " for " + weaponCatalog.get(g).getCost());
+                           }
+                        } 
+                        else
+                           if (weaponInput.equalsIgnoreCase("Quit")) {
+                              armoryPause = false;
+                           } 
+                           else {
+                              if (containsItem(weaponCatalog, new Item(weaponInput))) {
+                                 Item interest = new Item (weaponInput);
+                                 if (interest.getCost() > Heros.getGold()) {
+                                    System.out.println("Blacksmith: \"Yer shy a few shllings lad.\"");
+                                 } 
+                                 else {
+                                    Heros.modGold(-interest.getCost());
+                                    Heros.addItem(interest, 1);
+                                    System.out.println("You have purchased a " + interest.getName() + " for its cost of " + interest.getCost() + ".");
+                                 }
+                              } 
+                              else {
+                                 System.out.println("Blacksmith: \"Don't hav' that here, perhaps sothing diffrent?\"");
+                              }
+                           }
+                  } while (armoryPause);
+                  armoryPause = true;
+               }
+               
+               if (armoryInput.equalsIgnoreCase("head") || armoryInput.equalsIgnoreCase("hat") || armoryInput.equalsIgnoreCase("hats")) {
+                  System.out.println("Blacksmith: \"We be selling the whole backpack for pure... gold.\"");
+                  Art.drawHelmet();
+                  for (int g = 0; g < headCatalog.size(); g++) {
+                     System.out.println(headCatalog.get(g).getName() + " for " + headCatalog.get(g).getCost());
+                  }
+                  do {
+                     System.out.println("Blacksmith: \"Which piece o' headgear catches yer eye?\"");
+                     String headInput = input.nextLine();
+                     if (headInput.equalsIgnoreCase("?")) {
+                        System.out.println("Catalog: List the head items you can buy.");
+                        System.out.println("Quit: Leave the headgear aisle.");
+                        System.out.println("Type in the name of the item you would like to buy. Unlike the shop, quantity is not an issue.");
+                     }  
+                     else
+                        if (containsItem(headCatalog, new Item(headInput))) {
+                           for (int g = 0; g < headCatalog.size(); g++) {
+                              System.out.println(headCatalog.get(g).getName() + " for " + headCatalog.get(g).getCost());
+                           }
+                        } 
+                        else
+                           if (headInput.equalsIgnoreCase("Quit")) {
+                              armoryPause = false;
+                           } 
+                           else {
+                              if (headCatalog.contains(new Item(headInput))) {
+                                 Item interest = new Item (headInput);
+                                 if (interest.getCost() > Heros.getGold()) {
+                                    System.out.println("Blacksmith: \"Yer shy a few shllings lad.\"");
+                                 } 
+                                 else {
+                                    Heros.modGold(-interest.getCost());
+                                    Heros.addItem(interest, 1);
+                                    System.out.println("You have purchased a " + interest.getName() + " for its cost of " + interest.getCost() + ".");
+                                 }
+                              } 
+                              else {
+                                 System.out.println("Blacksmith: \"Don't hav' that here, perhaps sothing diffrent?\"");
+                              }
+                           }
+                  } while (armoryPause);
+                  armoryPause = true;
+               }
+               
+               if (armoryInput.equalsIgnoreCase("body") || armoryInput.equalsIgnoreCase("armor")) {
+                  System.out.println("Blacksmith: \"Ye'll be needin' a second hide t'keep yer first one in-tact!\"");
+                  Art.drawArmor();
+                  for (int g = 0; g < bodyCatalog.size(); g++) {
+                     System.out.println(bodyCatalog.get(g).getName() + " for " + bodyCatalog.get(g).getCost());
+                  }
+                  do {
+                     System.out.println("Blacksmith: \"Which o' my pieces of art would ya like?\"");
+                     String bodyInput = input.nextLine();
+                     if (bodyInput.equalsIgnoreCase("?")) {
+                        System.out.println("Catalog: List the body items you can buy.");
+                        System.out.println("Quit: Leave the bodygear aisle.");
+                        System.out.println("Type in the name of the item you would like to buy. Unlike the shop, quantity is not an issue.");
+                     }  
+                     else
+                        if (bodyInput.equalsIgnoreCase("Catalog")) {
+                           for (int g = 0; g < bodyCatalog.size(); g++) {
+                              System.out.println(bodyCatalog.get(g).getName() + " for " + bodyCatalog.get(g).getCost());
+                           }
+                        } 
+                        else
+                           if (bodyInput.equalsIgnoreCase("Quit")) {
+                              armoryPause = false;
+                           } 
+                           else {
+                              if (containsItem(bodyCatalog, new Item(bodyInput))) {
+                                 Item interest = new Item (bodyInput);
+                                 if (interest.getCost() > Heros.getGold()) {
+                                    System.out.println("Blacksmith: \"Yer shy a few shllings lad.\"");
+                                 } 
+                                 else {
+                                    Heros.modGold(-interest.getCost());
+                                    Heros.addItem(interest, 1);
+                                    System.out.println("You have purchased a " + interest.getName() + " for its cost of " + interest.getCost() + ".");
+                                 }
+                              } 
+                              else {
+                                 System.out.println("Blacksmith: \"Don't hav' that here, perhaps sothing diffrent?\"");
+                              }
+                           }
+                  } while (armoryPause);
+                  armoryPause = true;
+               }
+               
+               if (armoryInput.equalsIgnoreCase("feet") || armoryInput.equalsIgnoreCase("shoes") || armoryInput.equalsIgnoreCase("boots")) {
+                  System.out.println("Blacksmith: \"Lookin' fer some kicks? We got the finest.\"");
+                  Art.drawSword();
+                  for (int g = 0; g < feetCatalog.size(); g++) {
+                     System.out.println(feetCatalog.get(g).getName() + " for " + feetCatalog.get(g).getCost());
+                  }
+                  do {
+                     System.out.println("Blacksmith: \"Which pair are gonna be touching my doorway today?\"");
+                     String feetInput = input.nextLine();
+                     if (feetInput.equalsIgnoreCase("?")) {
+                        System.out.println("Catalog: List the feet items you can buy.");
+                        System.out.println("Quit: Leave the feetgear aisle.");
+                        System.out.println("Type in the name of the item you would like to buy. Unlike the shop, quantity is not an issue.");
+                     }  
+                     else
+                        if (feetInput.equalsIgnoreCase("Catalog")) {
+                           for (int g = 0; g < feetCatalog.size(); g++) {
+                              System.out.println(feetCatalog.get(g).getName() + " for " + feetCatalog.get(g).getCost());
+                           }
+                        } 
+                        else
+                           if (feetInput.equalsIgnoreCase("Quit")) {
+                              armoryPause = false;
+                           } 
+                           else {
+                              if (containsItem(feetCatalog, new Item(feetInput))) {
+                                 Item interest = new Item (feetInput);
+                                 if (interest.getCost() > Heros.getGold()) {
+                                    System.out.println("Blacksmith: \"Yer shy a few shllings lad.\"");
+                                 } 
+                                 else {
+                                    Heros.modGold(-interest.getCost());
+                                    Heros.addItem(interest, 1);
+                                    System.out.println("You have purchased a " + interest.getName() + " for its cost of " + interest.getCost() + ".");
+                                 }
+                              } 
+                              else {
+                                 System.out.println("Blacksmith: \"Don't hav' that here, perhaps sothing diffrent?\"");
+                              }
+                           }
+                  } while (armoryPause);
+                  armoryPause = true;
+               }
+               
+            } while (armoryPause);
          }
          if (townInput.equalsIgnoreCase("Inventory")) {
             boolean inventoryPause = true;
@@ -71,7 +286,7 @@ public class Town{
             boolean shopPause = true;
             do{
                Art.drawShopSign();
-               System.out.println("Anything I can do for you?");
+               System.out.println("ShopKeep: \"Anything I can do for you?\"");
                String shopInput = input.nextLine();
                if (shopInput.equalsIgnoreCase("?")) {
                   System.out.println("Buy: bring up the menu to purchase items.");
@@ -80,7 +295,7 @@ public class Town{
                }
                if (shopInput.equalsIgnoreCase("Sell")) {
                   do {
-                     System.out.println("What are you selling? I'll give a fair price.");
+                     System.out.println("ShopKeep: \"What are you selling? I'll give a fair price.\"");
                      String sellInput = input.nextLine();
                      if (sellInput.equalsIgnoreCase("quit")) {
                         shopPause = false;
@@ -109,7 +324,7 @@ public class Town{
                            
                            if (Heros.check(interest)) {
                               if (Heros.getItemQuantity(interest) < quantity) {
-                                 System.out.println("You appear to be attempting to sell more of those than you have.");
+                                 System.out.println("ShopKeep: \"You appear to be attempting to sell more of those than you have.\"");
                               }
                               else {
                                  Heros.modGold(interest.getValue() * quantity);
@@ -124,7 +339,7 @@ public class Town{
                               }
                            } 
                            else {
-                              System.out.println("You don't appear to have an item under that name.");
+                              System.out.println("ShopKeep: \"You don't appear to have an item under that name.\"");
                            }
                         }
                   
@@ -133,7 +348,7 @@ public class Town{
                }
                if (shopInput.equalsIgnoreCase("Buy")) {
                   do {
-                     System.out.println("What can I get for you?");
+                     System.out.println("ShopKeep: \"What can I get for you?\"");
                      String buyInput = input.nextLine();
                      
                      if (buyInput.equalsIgnoreCase("quit")) {
@@ -143,7 +358,7 @@ public class Town{
                         if (buyInput.equalsIgnoreCase("?")) {
                            System.out.println("Catalog: bring up of a list of items avalible to purchase.");
                            System.out.println("Quit: Leave the buy menu.");
-                           System.out.println("Buy items by typing in their name or catalog number, if you would like to purchas many, add an x then the desired number of it.");
+                           System.out.println("Buy items by typing in their name, if you would like to purchas many, add an x then the desired number of it.");
                            System.out.println("Ex: \"Product x 14\" or just \"Product\" if you only want one");
                         } 
                         else if (buyInput.equalsIgnoreCase("Catalog")) {
@@ -171,11 +386,11 @@ public class Town{
                               }
                            }
                            if (f == shopCatalog.size()) {
-                              System.out.println("We can't find that item, perhaps another one?");
+                              System.out.println("ShopKeep: \"We can't find that item, perhaps another one?\"");
                            } 
                            else {
                               if ((interest.getCost()*quantity) > Heros.getGold()) {
-                                 System.out.println("You don't have enough money for that purchase.");
+                                 System.out.println("ShopKeep: \"You don't have enough money for that purchase.\"");
                               }
                               else {
                                  Heros.modGold(-(interest.getCost()*quantity));
@@ -196,7 +411,7 @@ public class Town{
                }
                if (shopInput.equalsIgnoreCase("Quit")) {
                   shopPause = false;
-                  System.out.println("Have a nice day!");
+                  System.out.println("ShopKeep: \"Have a nice day!\"");
                }
             
             } 
@@ -205,5 +420,14 @@ public class Town{
         
       } while (pause);
       System.out.println("Town has ended");
+   }
+   
+   public static boolean containsItem(ArrayList<Item> line, Item subject) {
+      for (int i = 0; i < line.size(); i++) {
+         if (line.get(i).getName().equalsIgnoreCase(subject.getName())) {
+            return true;
+         }
+      }
+      return false;
    }
 }
