@@ -1,5 +1,5 @@
 import java.util.*;
-public class Item {
+public class Item implements Comparable<Item> {
    private String name;
    private String type;
    private String effect;
@@ -59,14 +59,30 @@ public class Item {
    public boolean getRange() {
       return range;}
       
+   public boolean compare(Item one, Item two) {
+      if (one.getName().equalsIgnoreCase(two.getName())) {
+         return true;
+      } 
+      else {
+         return false;
+      }
+   }
+   
+   public int compareTo(Item other) {
+      return this.name.compareTo(other.name);
+   }
+   
+   public String toString(){
+   return name;
+   }
       
-   public void Item(String nm) {
+   public Item(String nm) {
       name = "Nothing";
       type = "Nothing";
       effect = "";
       cost = 0;
       value = 0;
-      range = true;
+      range = false;
       strMin = 0;
       intMin = 0;
       agiMin = 0;
@@ -76,6 +92,25 @@ public class Item {
       strMod = 0;
       intMod = 0;
       agiMod = 0;
+      // MISC
+      if (nm.equalsIgnoreCase("Odd Trinket")) {
+         name = "Odd Trinket";
+         type = "Trinket";
+         cost = 100;
+         value = 50;
+      }
+      if (nm.equalsIgnoreCase("Treasure Key")) {
+         name = "Treasure Key";
+         type = "Trinket";
+         cost = 100;
+         value = 75;
+      }
+      if (nm.equalsIgnoreCase("Bread")) {
+         name = "Bread";
+         type = "Consumable";
+         cost = 50;
+         value = 15;
+      }
       // WEAPONS
       if (nm.equalsIgnoreCase("sword")) {
          name = "sword";
