@@ -8,6 +8,20 @@ public class Hero extends GameObject{
    protected Item body;
    protected Item feet;
    
+   public Item getWeapon() {
+   return weapon;
+   }
+   public Item getHead() {
+   return head;
+   }
+   public Item getBody() {
+   return body;
+   }
+   public Item getFeet() {
+   return feet;
+   }
+   
+   
    public String getHeroClass() { 
       return heroClass;}
       
